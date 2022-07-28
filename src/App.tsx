@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import TodoInput from './TodoInput/TodoInput';
+import TodoList from './TodoList/TodoList';
 
-function App() {
+type todoType = {
+  id: number
+  name: string
+  performed: boolean
+}
+
+const App = () => {
+  const initialState: Array<todoType> = []
+  const [todos, setTodos] = useState(initialState)
+  const [todoTitle, setTodoTitle] = useState('')
+
+  useEffect(() => {
+    const localStorageTodos: any = localStorage.getItem('todos') || []
+    console.log(localStorageTodos)
+    setTodos(JSON.parse(localStorageTodos))
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
+  
+  const addTodo = (e: any) => {
+    if (e.key === 'Enter') {
+      setTodos([
+        ...todos,
+        {
+          id: Date.now(),
+          name: todoTitle,
+          performed: false
+        }
+      ])
+      setTodoTitle('')
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1 className='App-title'>todos</h1>
+      <TodoInput todoTitle={todoTitle} setTodoTitle={setTodoTitle} addTodo={addTodo} />
+      <TodoList todos={todos} />
     </div>
   );
 }
 
-export default App;
+export default React.memo(App);
