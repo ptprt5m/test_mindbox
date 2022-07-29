@@ -9,14 +9,17 @@ export type TodoItem = {
 
 type PropsType = {
     todos: Array<TodoItem>
+    toggleTodo: (id: number) => void
+    removeTodo: (id: number) => void
 }
 
-const TodoList: React.FC<PropsType> = ({todos}) => {
+const TodoList: React.FC<PropsType> = ({todos, toggleTodo, removeTodo}) => {
     
     return (
         <div className='App-todos'>
         {todos.map(todo => {
-          return <TodoItem name={todo.name} performed={todo.performed} key={todo.id} />
+          return <TodoItem id={todo.id} name={todo.name} performed={todo.performed}
+                           key={todo.id} toggleTodo={toggleTodo} removeTodo={removeTodo} />
         })}
       </div>
     )

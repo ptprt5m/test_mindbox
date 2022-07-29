@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   margin: 50px auto;
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .App-title {
@@ -20,12 +20,23 @@
   border-bottom: 1.5px solid black;
   padding: 10px 20px;
   width: 100%;
+  transition: .2s all;
+}
+
+.App-input:hover, .App-input:active, .App-input:focus {
+  padding-left: 35px;
 }
 
 .App-todos-block {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 30px 0;
   text-align: left;
+}
+
+.App-name-block {
+  display: flex;
 }
 
 .check {
@@ -41,5 +52,16 @@
 
 .App-todo-checkbox {
   width: 30px;
-  margin-right: 7px;
+  margin-right: 10px;
+}
+
+.App-todo-delete {
+  text-align: center;
+  padding: 0 10px;
+  cursor: pointer;
+  transition: .1s all;
+}
+
+.App-todo-delete:active, .App-todo-delete:hover, .App-todo-delete:focus {
+  opacity: .75;
 }

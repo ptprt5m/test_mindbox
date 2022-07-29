@@ -1,17 +1,24 @@
-import React, {useState} from 'react'
-
+import React from 'react'
 
 type PropsType = {
+    id: number
     name: string
     performed: boolean
+    toggleTodo: (id: number) => void
+    removeTodo: (id: number) => void
 }
 
-const TodoItem: React.FC<PropsType> = ({name, performed}) => {
-    const [check, setCheck] = useState(performed)
+const TodoItem: React.FC<PropsType> = ({id, name, performed,
+                                           toggleTodo, removeTodo}) => {
+
     return (
         <div className='App-todos-block'>
-            <input className='App-todo-checkbox' type='checkbox' checked={check} onChange={() => setCheck(!check)} />
-            <p className={check ? 'App-todo-name check' : 'App-todo-name'}>{name}</p>
+            <div className='App-name-block'>
+                <input className='App-todo-checkbox' type='checkbox'
+                       checked={performed} onChange={() => toggleTodo(id)} />
+                <p className={performed ? 'App-todo-name check' : 'App-todo-name'}>{name}</p>
+            </div>
+            <div className='App-todo-delete' onChange={() => {removeTodo(id)}}>❌</div>
         </div>
     )
 }
